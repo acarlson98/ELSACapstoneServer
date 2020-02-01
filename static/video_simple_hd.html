@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <!--skip-->
+        <title>EasyRTC Demo:EasyRTC Demo: Video+Audio HD 720</title>
+        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+
+        <!--hide-->
+        <!-- <link rel="stylesheet" type="text/css" href="css/landing.css" /> -->
+        <link rel="stylesheet" type="text/css" href="video_simple_hd.css" />
+
+        <!--show-->            <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="video_simple_hd.js"></script>
+
+    </head>
+    <body  onload="connect();">
+        <!--hide-->
+
+        <div id="container">
+            <div id="header">
+                <a href="index.html"><img id="logo_easyrtc" src="images/easyrtc_logo.png" alt="EasyRTC" style="" /></a>
+            </div>
+            <div id="menu"><a class="menu_link" href="index.html"><div class="menu_item">Local Demos</div></a><a class="menu_link" href="https://github.com/priologic/easyrtc/tree/master/docs"><div class="menu_item">Documentation</div></a><a class="menu_link" href="https://easyrtc.com/forum/"><div class="menu_item">Support: EasyRTC Forums</div></a><a class="menu_link" href="http://www.easyrtc.com/"><div class="menu_item">EasyRTC.com</div></a></div>
+            <div id="main">
+                <!-- Main Content -->
+                <!--show-->
+                <h1>EasyRTC Demo: Video+Audio HD 720p</h1>
+                <div id="demoContainer">
+                    <div>
+                    Note: your own image will show up postage stamp sized, while the other party's video will be shown in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition video; the fallback is to use standard definition (640x480).
+                    </div>
+                   <div id="connectControls">
+                        <div id="iam">Not yet connected...</div>
+                        <br />
+                        <strong>Connected users:</strong>
+                        <div id="otherClients"></div>
+                    </div>
+                    <div id="videos">
+
+                        <div style="position:relative;float:left;" width="1282" height="722">
+                            <video autoplay="autoplay" id="callerVideo"></video>
+                            <video  class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0" ></video>
+                        </div>
+                        <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
+                    </div>
+                </div>
+                <div id="arrows">
+                    <button onclick="left">&#8592;</button>
+                    <button onclick="up">&#8593;</button>
+                    <button onclick="right">&#8594;</button>
+                    <button onclick="down">&#8595;</button>
+                </div>
+                <!--hide-->
+                <br style="clear:both;" />
+                <hr />
+                <!-- End Main Content -->
+            </div>
+            <div id="footer">
+                <a href="http://www.skedans.com/?from=landing"><img id="logo_priologic" src="images/skedans_logo.png" height="40" width="150" alt="Created By Skedans Systems, Inc." /></a>
+                <a href="http://www.easyrtc.com/?from=landing"><img id="logo_pb_easyrtc" src="/easyrtc/img/powered_by_easyrtc.png" height="60" width="200" alt="Powered By EasyRTC" /></a>
+                <p><em>&copy; 2016 - Skedans Systems, Inc., All Rights Reserved.</em></p>
+                <p id="license">EasyRTC source code released under a BSD2 License. <a href="https://github.com/priologic/easyrtc/blob/master/LICENSE">See LICENSE file in project folder</a> for details.</p>
+            </div>
+        </div>
+        <!--show-->
+    </body>
+</html>
