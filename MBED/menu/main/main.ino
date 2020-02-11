@@ -2,7 +2,10 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "image.h"
+#include "src/image.h"
+#include "src/menu.h"
+#include "ThingSpeak.h" //install library for thing speak
+#include <WiFi.h>
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -13,118 +16,56 @@ int const tact1 = 16;
 int const tact2 = 17;
 int const tact3 = 18;
 
+//Thing Speak neededd
+char ssid[] = "PKI";        // your network SSID (name) 
+char pass[] = "12345678";   // your network password
+int keyIndex = 0;           // your network key Index number (needed only for WEP)
+WiFiClient  client;
+unsigned long myChannelNumber = 985815;
+const char * myWriteAPIKey = "77PYOKK03FXL15CW";
+// Initialize our values
+String myStatus = "";
+
+int BPM;
+int O2;
+int HTemp;
+
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-void menu1(){
-  display.clearDisplay();
-  display.drawBitmap(0, 0, Logo, 128, 31, 1);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 40);
-  display.println(">WiFi       Heart");
-  display.println(" Motor  ");
-  display.println(" LED");
-  display.display(); 
-  return;
+
+
+void checkHeart(){
+  
 }
-void menu2(){
-  display.clearDisplay();
-  display.drawBitmap(0, 0, Logo, 128, 31, 1);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 40);
-  display.println(" WiFi       Heart");
-  display.println(">Motor");
-  display.println(" LED");
-  display.display();
-  return; 
-}
-void menu3(){
-  display.clearDisplay();
-  display.drawBitmap(0, 0, Logo, 128, 31, 1);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 40);
-  display.println(" WiFi       Heart");
-  display.println(" Motor");
-  display.println(">LED");
-  display.display();
-  return; 
-}
-void menu4(){
-  display.clearDisplay();
-  display.drawBitmap(0, 0, Logo, 128, 31, 1);
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 40);
-  display.println(" WiFi      >Heart");
-  display.println(" Motor");
-  display.println(" LED");
-  display.display();
-  return; 
-}
-void WiFiMenu(){
-    delay(200);
-    while(digitalRead(tact2)){
-      display.clearDisplay();
-      display.setTextSize(2);
-      display.setTextColor(WHITE);
-      display.setCursor(0, 10);
-      display.println("WiFi Menu");
-      display.println("SSID: ");
-      display.println("text");
-      display.display();
-    }
-  delay(200);
-  return; 
-}
-void MotorMenu(){
-    delay(200);
-    while(digitalRead(tact2)){
-      display.clearDisplay();
-      display.setTextSize(2);
-      display.setTextColor(WHITE);
-      display.setCursor(0, 10);
-      display.println("Motor Menu");
-      display.println();
-      display.setTextSize(1);
-      display.println("STEP1    DIR   STEP2");
-      display.println("  ^       ^      ^");
-      display.display();
-    }
-  delay(200);
-  return; 
-}
-void LEDMenu(){
-    delay(200);
-    while(digitalRead(tact2)){
-        display.clearDisplay();
-        display.setTextSize(2);
-        display.setTextColor(WHITE);
-        display.setCursor(0, 10);
-        display.println("LED Menu");
-        display.println(" LED");
-        display.println(">LED");
-        display.display();
-      }
-    
-    return; 
-}
-void HeartMenu(){
-    delay(200);
-    while(digitalRead(tact2)){
-        display.clearDisplay();
-        display.setTextSize(2);
-        display.setTextColor(WHITE);
-        display.setCursor(0, 10);
-        display.println("Heart Menu");
-        display.setTextSize(1);
-        display.println("BPM :");
-        display.println("O2  :");
-        display.println("TEMP:");
-        display.display();
-      }
-    return; 
+
+void sendHeart(){
+    // Connect or reconnect to WiFi
+  if(WiFi.status() != WL_CONNECTED){
+    Serial.print("Attempting to connect to SSID: ");
+    while(WiFi.status() != WL_CONNECTED){
+      WiFi.begin(ssid, pass);  // Connect to WPA/WPA2 network. Change this line if using open or WEP network
+      Serial.print(".");
+      delay(5000);     
+    } 
+    Serial.println("\nConnected.");
+  }
+
+  // set the fields with the values
+  ThingSpeak.setField(1, BPM);
+
+  
+  // set the status
+  ThingSpeak.setStatus(myStatus);
+  
+  // write to the ThingSpeak channel
+  int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+  if(x == 200){
+    Serial.println("Channel update successful.");
+  }
+  else{
+    Serial.println("Problem updating channel. HTTP error code " + String(x));
+  }
 }
 
 void checkMenuTact(){
@@ -172,7 +113,10 @@ void checkMenuTact(){
   
 }
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);  //Initialize serial
+  WiFi.mode(WIFI_STA);   
+  ThingSpeak.begin(client);  // Initialize ThingSpeak
+  
   pinMode(tact1, INPUT_PULLUP); 
   pinMode(tact2, INPUT_PULLUP); 
   pinMode(tact3, INPUT_PULLUP); 
