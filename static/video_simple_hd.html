@@ -46,15 +46,28 @@
                         <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
                     </div>
                 </div>
-                <div id="arrows">
-                    <button onclick="left">&#8592;</button>
-                    <button onclick="up">&#8593;</button>
-                    <button onclick="right">&#8594;</button>
-                    <button onclick="down">&#8595;</button>
+                <div>
+                    <div id="arrows">
+                        <button onclick="sendUp();">&#8593;</button>
+                        <button onclick="sendDown();">&#8595;</button>
+                        <button onclick="sendLeft()">&#8592;</button>
+                        <button onclick="sendRight()">&#8594;</button>
+                        <textarea id="arrows_in" readonly="true" rows="4" cols="50"></textarea>
+                    </div>
+
+                    <div id="sendMessageArea">
+                        <div id="iam">Obtaining ID...</div>
+                        <textarea id="sendMessageText"></textarea>
+                        <div id="otherClients"></div>
+                    </div>
+                    <div id="receiveMessageArea">
+                        Received Messages:
+                        <div id="conversation"></div>
+                    </div>
+                    <!--hide-->
+                    <br style="clear:both;" />
+                    <hr />
                 </div>
-                <!--hide-->
-                <br style="clear:both;" />
-                <hr />
                 <!-- End Main Content -->
             </div>
             <div id="footer">
