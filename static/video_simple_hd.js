@@ -187,18 +187,18 @@ easyrtc.setAcceptChecker(function(caller, cb) {
     cb(true);
 } );
 
-// function sendUp() {
+function sendUp() {
+    document.getElementById("arrows_in").value = "Up";
+}
 
-// }
+function sendDown() {
+    document.getElementById("arrows_in").value = "Down";
+}
 
-// function sendDown() {
+function sendLeft() {
+    document.getElementById("arrows_in").value = "Left";
+}
 
-// }
-
-// function sendLeft() {
-
-// }
-
-// function sendRight() {
-
-// }
+function sendRight() {
+    document.getElementById("arrows_in").value = "Right";
+}
