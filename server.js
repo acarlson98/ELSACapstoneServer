@@ -9,9 +9,8 @@ var httpApp = express();
 //httpApp.use(express.static(__dirname + "/static/"));
 httpApp.use(express.static(__dirname + "/static/"));
 
-// Start Express http server on port 8080
-// Not really, do it on ICDsoft server port 13079
-var webServer = http.createServer(httpApp).listen(13079);
+// Start Express http server on port
+var webServer = http.createServer(httpApp).listen(process.env.PORT);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = io.listen(webServer);
