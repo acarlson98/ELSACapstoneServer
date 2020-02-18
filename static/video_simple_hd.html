@@ -33,78 +33,76 @@
 
 <body onload="connect();">
 
-    <div class="container">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.html">ELSA Monitor</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link"
-                        href="https://github.com/priologic/easyrtc/tree/master/docs">EasyRTC Docs</a>
-                    <a class="nav-item nav-link" 
-                        href="https://github.com/acarlson98/ELSACapstoneServer/">Project Github</a>
-                </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">ELSA Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="https://github.com/priologic/easyrtc/tree/master/docs">EasyRTC
+                    Docs</a>
+                <a class="nav-item nav-link" href="https://github.com/acarlson98/ELSACapstoneServer/">Project Github</a>
             </div>
-        </nav>
-
-        <div id="main">
-            <!-- Main Content -->
-            <!--show-->
-            <h1>ELSA Monitor Demo</h1>
-            <div id="demoContainer">
-                <div>
-                    Note: your own image will show up postage stamp sized, while the other party's video will be shown
-                    in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition
-                    video; the fallback is to use standard definition (640x480).
-                </div>
-                <div id="connectControls">
-                    <div id="iam">Not yet connected...</div>
-                    <br />
-                    <strong>Connected users:</strong>
-                    <div id="otherClients"></div>
-                </div>
-                <div id="videos">
-
-                    <div style="position:relative;float:left;" width="1282" height="722">
-                        <video autoplay="autoplay" id="callerVideo"></video>
-                        <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
-                    </div>
-                    <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
-                </div>
-            </div>
-            <div>
-                <!-- <div id="arrows">
-                        <button onclick="sendUp();">&#8593;</button>
-                        <button onclick="sendDown();">&#8595;</button>
-                        <button onclick="sendLeft()">&#8592;</button>
-                        <button onclick="sendRight()">&#8594;</button>
-                        <textarea id="arrows_in" readonly="true" rows="4" cols="50"></textarea>
-                    </div>
-
-                    <div id="sendMessageArea">
-                        <div id="iam">Obtaining ID...</div>
-                        <textarea id="sendMessageText"></textarea>
-                        <div id="otherClients"></div>
-                    </div>
-                    <div id="receiveMessageArea">
-                        Received Messages:
-                        <div id="conversation"></div>
-                    </div> -->
-                <!--hide-->
-                <br style="clear:both;" />
-                <hr />
-            </div>
-            <!-- End Main Content -->
         </div>
-        <div id="footer">
-            <p>Developed by UNO Capstone Team 5, 2020</p>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <h1>ELSA Monitor Demo</h1>
+        <div>
+            Note: your own image will show up postage stamp sized, while the other party's video will be shown
+            in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition
+            video; the fallback is to use standard definition (640x480).
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4" id="arrows">
+                <button onclick="sendUp();">&#8593;</button>
+                <button onclick="sendDown();">&#8595;</button>
+                <button onclick="sendLeft()">&#8592;</button>
+                <button onclick="sendRight()">&#8594;</button>
+                <textarea id="arrows_in" readonly="true" rows="4" cols="50"></textarea>
+            </div>
+
+            <div class="col-sm-4" id="sendMessageArea">
+                <div id="iam">Obtaining ID...</div>
+                <textarea id="sendMessageText"></textarea>
+                <div id="otherClients"></div>
+            </div>
+
+            <div class="col-sm-4" id="receiveMessageArea">
+                Received Messages:
+                <div id="conversation"></div>
+                Shouldn't there be a text area here?
+            </div>
+
+            <!-- Not sure what these are here for -->
+            <!-- <br style="clear:both;" />
+            <hr /> -->
+        </div>
+
+        <div class="row" id="connectControls">
+            <div id="iam">Not yet connected...</div>
+            <br />
+            <strong>Connected users:</strong>
+            <div id="otherClients"></div>
+        </div>
+
+        <div id="videos">
+            <div style="position:relative;float:left;" width="1282" height="722">
+                <video autoplay="autoplay" id="callerVideo"></video>
+                <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
+            </div>
+            <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
+            <!-- Does a close button even happen ever? -->
         </div>
     </div>
-    <!--show-->
+    <div id="footer">
+        <p>Developed by UNO Capstone Team 5, 2020</p>
+    </div>
 </body>
 
 </html>
