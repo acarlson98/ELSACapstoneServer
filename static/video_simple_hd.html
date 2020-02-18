@@ -1,59 +1,83 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-        <title>ELSA Monitor Demo</title>
-        <link rel="stylesheet" type="text/css" href="../easyrtc/easyrtc.css" />
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <!-- <link rel="stylesheet" type="text/css" href="css/landing.css" /> -->
-        <link rel="stylesheet" type="text/css" href="video_simple_hd.css" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+    <title>ELSA Monitor Demo</title>
+    <link rel="stylesheet" type="text/css" href="../easyrtc/easyrtc.css" />
 
-        <!-- Assumes global locations for socket.io.js and easyrtc.js -->
-        <script src="/socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="../easyrtc/easyrtc.js"></script>
-        <script type="text/javascript" src="video_simple_hd.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="css/landing.css" /> -->
+    <link rel="stylesheet" type="text/css" href="video_simple_hd.css" />
 
-        <!-- Bootstrap -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../easyrtc/easyrtc.js"></script>
+    <script type="text/javascript" src="video_simple_hd.js"></script>
 
-    </head>
-    <body  onload="connect();">
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
 
-        <div class="container">
-            <div id="header">
-                <a href="index.html">Return To Other Demos</a>
-            </div>
-            <div id="menu"><a class="menu_link" href="index.html"><div class="menu_item">Local Demos</div></a><a class="menu_link" href="https://github.com/priologic/easyrtc/tree/master/docs"><div class="menu_item">Documentation</div></a><a class="menu_link" href="https://easyrtc.com/forum/"><div class="menu_item">Support: EasyRTC Forums</div></a><a class="menu_link" href="http://www.easyrtc.com/"><div class="menu_item">EasyRTC.com</div></a></div>
-            <div id="main">
-                <!-- Main Content -->
-                <!--show-->
-                <h1>ELSA Monitor Demo</h1>
-                <div id="demoContainer">
-                    <div>
-                    Note: your own image will show up postage stamp sized, while the other party's video will be shown in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition video; the fallback is to use standard definition (640x480).
-                    </div>
-                   <div id="connectControls">
-                        <div id="iam">Not yet connected...</div>
-                        <br />
-                        <strong>Connected users:</strong>
-                        <div id="otherClients"></div>
-                    </div>
-                    <div id="videos">
+</head>
 
-                        <div style="position:relative;float:left;" width="1282" height="722">
-                            <video autoplay="autoplay" id="callerVideo"></video>
-                            <video  class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0" ></video>
-                        </div>
-                        <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
-                    </div>
+<body onload="connect();">
+
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">ELSA Monitor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link"
+                        href="https://github.com/priologic/easyrtc/tree/master/docs">EasyRTC Docs</a>
+                    <a class="nav-item nav-link" 
+                        href="https://github.com/acarlson98/ELSACapstoneServer/">Project Github</a>
                 </div>
+            </div>
+        </nav>
+
+        <div id="main">
+            <!-- Main Content -->
+            <!--show-->
+            <h1>ELSA Monitor Demo</h1>
+            <div id="demoContainer">
                 <div>
-                    <!-- <div id="arrows">
+                    Note: your own image will show up postage stamp sized, while the other party's video will be shown
+                    in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition
+                    video; the fallback is to use standard definition (640x480).
+                </div>
+                <div id="connectControls">
+                    <div id="iam">Not yet connected...</div>
+                    <br />
+                    <strong>Connected users:</strong>
+                    <div id="otherClients"></div>
+                </div>
+                <div id="videos">
+
+                    <div style="position:relative;float:left;" width="1282" height="722">
+                        <video autoplay="autoplay" id="callerVideo"></video>
+                        <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
+                    </div>
+                    <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
+                </div>
+            </div>
+            <div>
+                <!-- <div id="arrows">
                         <button onclick="sendUp();">&#8593;</button>
                         <button onclick="sendDown();">&#8595;</button>
                         <button onclick="sendLeft()">&#8592;</button>
@@ -70,16 +94,17 @@
                         Received Messages:
                         <div id="conversation"></div>
                     </div> -->
-                    <!--hide-->
-                    <br style="clear:both;" />
-                    <hr />
-                </div>
-                <!-- End Main Content -->
+                <!--hide-->
+                <br style="clear:both;" />
+                <hr />
             </div>
-            <div id="footer">
-                <p>Developed by UNO Capstone Team 5, 2020</p>
-            </div>
+            <!-- End Main Content -->
         </div>
-        <!--show-->
-    </body>
+        <div id="footer">
+            <p>Developed by UNO Capstone Team 5, 2020</p>
+        </div>
+    </div>
+    <!--show-->
+</body>
+
 </html>
