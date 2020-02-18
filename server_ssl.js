@@ -9,7 +9,7 @@ var io      = require("socket.io"); // web socket external module
 // 1. you need to replace this "require("../");" by "require("easyrtc");"
 // 2. install easyrtc (npm i easyrtc --save) in server_example/package.json
 
-var easyrtc = require("easyrtc"); // EasyRTC internal module
+var easyrtc = require("open-easyrtc"); // EasyRTC internal module
 
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
 var httpApp = express();
@@ -27,7 +27,7 @@ var socketServer = io.listen(webServer, {"log level":1});
 // Start EasyRTC server
 var rtc = easyrtc.listen(httpApp, socketServer);
 
-// Listen on port 13079
-webServer.listen(13079, function () {
-    console.log('listening on port 13079');
+// Listen on port
+webServer.listen(process.env.PORT, function () {
+    console.log('listening on port ' + process.env.PORT);
 });
