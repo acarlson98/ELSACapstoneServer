@@ -1,16 +1,15 @@
 var selfEasyrtcid = "";
-// var channelIsActive = {}; // tracks which channels are active
+var channelIsActive = {}; // tracks which channels are active
 
 
 function connect() {
     easyrtc.setVideoDims(1280,720);
     easyrtc.enableDebug(true); //turn this off for production
     easyrtc.enableDataChannels(true);
-    //not sure what these two do
+    //not sure what these four do
     easyrtc.setDataChannelOpenListener(openListener);
     easyrtc.setDataChannelCloseListener(closeListener);
-
-    // easyrtc.setPeerListener(addToConversation);
+    easyrtc.setPeerListener(addToConversation);
     easyrtc.setRoomOccupantListener(convertListToButtons);
 
     /** Provides a layer on top of the easyrtc.initMediaSource and easyrtc.connect, assign the local media stream to
@@ -20,19 +19,19 @@ function connect() {
      * that only appear when you hover over them with the mouse cursor. This method will also add the
      * easyrtcMirror class to the monitor video object so that it behaves like a mirror.
      */
-    easyrtc.easyApp("easyrtc.videoChatHd", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
+    // easyrtc.easyApp("easyrtc.videoChatHd", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
     // Can't call connect again after already doing it above
-    // easyrtc.connect("easyrtc.dataMessaging", loginSuccess, loginFailure);
+    easyrtc.connect("easyrtc.dataMessaging", loginSuccess, loginFailure);
 }
 
-
-// function addToConversation(who, msgType, content) {
-//     // Escape html special characters, then add linefeeds.
-//     content = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-//     content = content.replace(/\n/g, '<br />');
-//     document.getElementById('conversation').innerHTML +=
-//             "<b>" + who + ":</b>&nbsp;" + content + "<br />";
-// }
+// From data channel example
+function addToConversation(who, msgType, content) {
+    // Escape html special characters, then add linefeeds.
+    content = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    content = content.replace(/\n/g, '<br />');
+    document.getElementById('conversation').innerHTML +=
+            "<b>" + who + ":</b>&nbsp;" + content + "<br />";
+}
 
 
 function openListener(otherParty) {
@@ -55,17 +54,17 @@ function clearConnectList() {
 }
 
 
-// function updateButtonState(otherEasyrtcid) {
-//     var isConnected = channelIsActive[otherEasyrtcid];
-//     if(document.getElementById('connect_' + otherEasyrtcid)) {
-//         document.getElementById('connect_' + otherEasyrtcid).disabled = isConnected;
-//     }
-//     if( document.getElementById('send_' + otherEasyrtcid)) {
-//         document.getElementById('send_' + otherEasyrtcid).disabled = !isConnected;
-//     }
-// }
+function updateButtonState(otherEasyrtcid) {
+    var isConnected = channelIsActive[otherEasyrtcid];
+    if(document.getElementById('connect_' + otherEasyrtcid)) {
+        document.getElementById('connect_' + otherEasyrtcid).disabled = isConnected;
+    }
+    if( document.getElementById('send_' + otherEasyrtcid)) {
+        document.getElementById('send_' + otherEasyrtcid).disabled = !isConnected;
+    }
+}
 
-
+// From data channel example
 function sendStuffP2P(otherEasyrtcid) {
     var text = document.getElementById('sendMessageText').value;
     if (text.replace(/\s/g, "").length === 0) { // Don't send just whitespace
@@ -82,69 +81,70 @@ function sendStuffP2P(otherEasyrtcid) {
     document.getElementById('sendMessageText').value = "";
 }
 
-
-function convertListToButtons (roomName, data, isPrimary) {
-    clearConnectList();
-    var otherClientDiv = document.getElementById('otherClients');
-    for(var easyrtcid in data) {
-        var button = document.createElement('button');
-        button.onclick = function(easyrtcid) {
-            return function() {
-                performCall(easyrtcid);
-            };
-        }(easyrtcid);
-
-        var label = document.createTextNode(easyrtc.idToName(easyrtcid));
-        button.appendChild(label);
-        button.className = "callbutton";
-        otherClientDiv.appendChild(button);
-    }
-}
-
-// function convertListToButtons(roomName, occupantList, isPrimary) {
-//     connectList = occupantList;
-
+// From hd video example
+// function convertListToButtons (roomName, data, isPrimary) {
+//     clearConnectList();
 //     var otherClientDiv = document.getElementById('otherClients');
-//     while (otherClientDiv.hasChildNodes()) {
-//         otherClientDiv.removeChild(otherClientDiv.lastChild);
-//     }
-
-//     var label, button;
-//     for (var easyrtcid in connectList) {
-//         var rowGroup = document.createElement("span");
-//         var rowLabel = document.createTextNode(easyrtc.idToName(easyrtcid));
-//         rowGroup.appendChild(rowLabel);
-
-//         button = document.createElement('button');
-//         button.id = "connect_" + easyrtcid;
+//     for(var easyrtcid in data) {
+//         var button = document.createElement('button');
 //         button.onclick = function(easyrtcid) {
 //             return function() {
-//                 startCall(easyrtcid);
+//                 performCall(easyrtcid);
 //             };
 //         }(easyrtcid);
-//         label = document.createTextNode("Connect");
-//         button.appendChild(label);
-//         rowGroup.appendChild(button);
 
-//         button = document.createElement('button');
-//         button.id = "send_" + easyrtcid;
-//         button.onclick = function(easyrtcid) {
-//             return function() {
-//                 sendStuffP2P(easyrtcid);
-//             };
-//         }(easyrtcid);
-//         label = document.createTextNode("Send Message");
+//         var label = document.createTextNode(easyrtc.idToName(easyrtcid));
 //         button.appendChild(label);
-//         rowGroup.appendChild(button);
-//         otherClientDiv.appendChild(rowGroup);
-//         updateButtonState(easyrtcid);
-//     }
-//     if (!otherClientDiv.hasChildNodes()) {
-//         otherClientDiv.innerHTML = "<em>Nobody else logged in to talk to...</em>";
+//         button.className = "callbutton";
+//         otherClientDiv.appendChild(button);
 //     }
 // }
 
+// From data channel example
+function convertListToButtons(roomName, occupantList, isPrimary) {
+    connectList = occupantList;
 
+    var otherClientDiv = document.getElementById('otherClients');
+    while (otherClientDiv.hasChildNodes()) {
+        otherClientDiv.removeChild(otherClientDiv.lastChild);
+    }
+
+    var label, button;
+    for (var easyrtcid in connectList) {
+        var rowGroup = document.createElement("span");
+        var rowLabel = document.createTextNode(easyrtc.idToName(easyrtcid));
+        rowGroup.appendChild(rowLabel);
+
+        button = document.createElement('button');
+        button.id = "connect_" + easyrtcid;
+        button.onclick = function(easyrtcid) {
+            return function() {
+                startCall(easyrtcid);
+            };
+        }(easyrtcid);
+        label = document.createTextNode("Connect");
+        button.appendChild(label);
+        rowGroup.appendChild(button);
+
+        button = document.createElement('button');
+        button.id = "send_" + easyrtcid;
+        button.onclick = function(easyrtcid) {
+            return function() {
+                sendStuffP2P(easyrtcid);
+            };
+        }(easyrtcid);
+        label = document.createTextNode("Send Message");
+        button.appendChild(label);
+        rowGroup.appendChild(button);
+        otherClientDiv.appendChild(rowGroup);
+        updateButtonState(easyrtcid);
+    }
+    if (!otherClientDiv.hasChildNodes()) {
+        otherClientDiv.innerHTML = "<em>Nobody else logged in to talk to...</em>";
+    }
+}
+
+// From hd video example
 function performCall(otherEasyrtcid) {
     easyrtc.hangupAll();
     var acceptedCB = function(accepted, caller) {
@@ -157,6 +157,33 @@ function performCall(otherEasyrtcid) {
     easyrtc.call(otherEasyrtcid, successCB, failureCB, acceptedCB);
 }
 
+// From data channel example
+function startCall(otherEasyrtcid) {
+    if (easyrtc.getConnectStatus(otherEasyrtcid) === easyrtc.NOT_CONNECTED) {
+        try {
+        easyrtc.call(otherEasyrtcid,
+                function(caller, media) { // success callback
+                    if (media === 'datachannel') {
+                        console.log("made call succesfully");
+                        connectList[otherEasyrtcid] = true;
+                    }
+                },
+                function(errorCode, errorText) {
+                    connectList[otherEasyrtcid] = false;
+                    easyrtc.showError(errorCode, errorText);
+                },
+                function(wasAccepted) {
+                    console.log("was accepted=" + wasAccepted);
+                }
+        );
+        }catch( callerror) {
+            console.log("saw call error ", callerror);
+        }
+    }
+    else {
+        easyrtc.showError("ALREADY-CONNECTED", "already connected to " + easyrtc.idToName(otherEasyrtcid));
+    }
+}
 
 function loginSuccess(easyrtcid) {
     selfEasyrtcid = easyrtcid;
