@@ -23,7 +23,6 @@ function connect() {
      * easyrtcMirror class to the monitor video object so that it behaves like a mirror.
      */
     easyrtc.easyApp("easyrtc.videoChatHd", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
-    // Can't call connect again after already doing it above
     
 }
 
@@ -205,17 +204,17 @@ easyrtc.setAcceptChecker(function(caller, cb) {
 } );
 
 function sendUp() {
-    document.getElementById("arrows_in").value = "Up";
+    document.getElementById("sendMessageText").value = "Up";
 }
 
 function sendDown() {
-    document.getElementById("arrows_in").value = "Down";
+    document.getElementById("sendMessageText").value = "Down";
 }
 
 function sendLeft() {
-    document.getElementById("arrows_in").value = "Left";
+    document.getElementById("sendMessageText").value = "Left";
 }
 
 function sendRight() {
-    document.getElementById("arrows_in").value = "Right";
+    document.getElementById("sendMessageText").value = "Right";
 }

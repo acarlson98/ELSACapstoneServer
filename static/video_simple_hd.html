@@ -62,21 +62,20 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4" id="arrows">
+            <div class="col">
                 <button onclick="sendUp();">&#8593;</button>
                 <button onclick="sendDown();">&#8595;</button>
                 <button onclick="sendLeft()">&#8592;</button>
                 <button onclick="sendRight()">&#8594;</button>
-                <textarea id="arrows_in" readonly="true" rows="4" cols="50"></textarea>
             </div>
-
-            <div class="col-sm-4" id="sendMessageArea">
+            
+            <div class="col" id="sendMessageArea">
                 <div id="iam">Obtaining ID...</div>
                 <textarea id="sendMessageText"></textarea>
                 <div id="otherClients"></div>
             </div>
 
-            <div class="col-sm-4" id="receiveMessageArea">
+            <div class="col" id="receiveMessageArea">
                 Received Messages:
                 <div id="conversation"></div>
                 <!-- Apperently the div above gets used instead? -->
@@ -95,13 +94,15 @@
             <div id="otherClients"></div>
         </div>
 
-        <div class="row" id="videos">
-            <div style="position:relative;float:left;" width="1282" height="722">
+        <div class="row" id="videos" width="1282" height="722">
+            <div class="container">
+                <!-- <div style="position:relative;float:left;" width="1282" height="722"> -->
                 <video autoplay="autoplay" id="callerVideo"></video>
-                <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
+                <!-- <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video> -->
+                <video autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
+                <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
+                <!-- Does a close button even happen ever? -->
             </div>
-            <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
-            <!-- Does a close button even happen ever? -->
         </div>
 
         <div class="row" id="footer">
