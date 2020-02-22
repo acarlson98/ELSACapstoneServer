@@ -4,7 +4,8 @@ var channelIsActive = {}; // tracks which channels are active
 
 function connect() {
     easyrtc.setVideoDims(1280,720);
-    easyrtc.enableDebug(true); //turn this off for production
+    // easyrtc.enableDebug(true); //turn this off for production
+    // easyrtc.logLevel('debug');
     easyrtc.enableDataChannels(true);
 
     //not sure what these four do
