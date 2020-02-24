@@ -1,4 +1,12 @@
 # ELSACapstoneServer
+This repo contains the node.js application stored on the server at https://elsa.unoteam5.com/
+
+This server will function to connect the ELSA device with the remote user's device and allow for peer-to-peer WebRTC communication.
+The peer-to-peer connection will then be responsible for sending and receiving camera movement data as well as the media being captured by the camera.
+
+A previous iteration of this code that can be run locally can be found at https://github.com/acarlson98/CapstoneWebRTC
+
+The rest of this readme is from the EasyRTC documentation.
 
 EasyRTC Server Example
 ======================

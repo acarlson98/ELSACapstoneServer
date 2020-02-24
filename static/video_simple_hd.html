@@ -83,13 +83,36 @@
                 <!-- Apperently the div above gets used instead? -->
                 <!-- <textarea id="receiveMessageTextArea"></textarea> -->
             </div>
-            <div id="footer">
-                <a href="http://www.skedans.com/?from=landing"><img id="logo_priologic" src="images/skedans_logo.png" height="40" width="150" alt="Created By Skedans Systems, Inc." /></a>
-                <a href="http://www.easyrtc.com/?from=landing"><img id="logo_pb_easyrtc" src="/easyrtc/img/powered_by_easyrtc.png" height="60" width="200" alt="Powered By EasyRTC" /></a>
-                <p><em>&copy; 2016 - Skedans Systems, Inc., All Rights Reserved.</em></p>
-                <p id="license">EasyRTC source code released under a BSD2 License. <a href="https://github.com/priologic/easyrtc/blob/master/LICENSE">See LICENSE file in project folder</a> for details.</p>
+
+            <!-- Not sure what these are here for -->
+            <!-- <br style="clear:both;" />
+            <hr /> -->
+        </div>
+
+        <!-- <div class="row" id="connectControls">
+            <div id="iam">Not yet connected...</div>
+            <br />
+            <strong>Connected users:</strong>
+            <div id="otherClients"></div>
+        </div> -->
+
+        <!-- Adjust the width to put video closer to center? -->
+        <div class="row mx-auto" id="videos" height="720">
+            <div style="position:relative;float:left;">
+                <video autoplay="autoplay" id="callerVideo"></video>
+                <!-- <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video> -->
+                <video autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
+                <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
+                <!-- Does a close button even happen ever? -->
             </div>
         </div>
-        <!--show-->
-    </body>
+
+        <div class="row" id="footer">
+            <p>Developed by University of Nebraska - Lincoln (Omaha Campus) Capstone Team 5, 2020</p>
+        </div>
+
+    </div>
+
+</body>
+
 </html>
