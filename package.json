@@ -15,9 +15,12 @@
     "docker-compose:stop": "docker-compose -f docker-compose.yml down"
   },
   "dependencies": {
+    "bindings": "^1.5.0",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
+    "nan": "^2.14.0",
+    "onoff": "^5.0.1",
     "open-easyrtc": "^2.0.5",
     "popper.js": "^1.16.1",
     "serve-static": "^1.14.1",
