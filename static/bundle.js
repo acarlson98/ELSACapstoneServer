@@ -3649,5 +3649,9 @@ process.on('SIGINT', _ => {
   led.unexport();
   button.unexport();
 });
+
+module.exports = {
+  target: 'node'
+};
 }).call(this,require('_process'))
 },{"_process":7,"onoff":12}]},{},[13]);

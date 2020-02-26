@@ -16,3 +16,7 @@ process.on('SIGINT', _ => {
   led.unexport();
   button.unexport();
 });
+
+module.exports = {
+  target: 'node'
+};
