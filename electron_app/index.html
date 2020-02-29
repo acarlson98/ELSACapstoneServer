@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
     <title>ELSA Monitor Demo</title>
-    <link rel="stylesheet" type="text/css" href="../easyrtc/easyrtc.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="../easyrtc/easyrtc.css" /> -->
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -16,7 +16,7 @@
 
     <!-- Assumes global locations for socket.io.js and easyrtc.js -->
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="../easyrtc/easyrtc.js"></script>
+    <script type="text/javascript" src="/node_modules/open-easyrtc"></script>
     <script type="text/javascript" src="video_simple_hd.js"></script>
     <script type="text/javascript" src="index.js"></script>
 
@@ -87,22 +87,27 @@
             </div>
         </div>
 
-        <!-- <div class="row" id="connectControls">
-            <div id="iam">Not yet connected...</div>
-            <br />
-            <strong>Connected users:</strong>
-            <div id="otherClients"></div>
-        </div> -->
-
         <!-- Adjust the width to put video closer to center? -->
         <div class="row mx-auto" id="videos" height="720">
             <div style="position:relative;float:left;">
                 <video autoplay="autoplay" id="callerVideo"></video>
-                <!-- <video class="easyrtcMirror" autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video> -->
                 <video autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
                 <!-- each caller video needs to be in it's own div so it's close button can be positioned -->
             </div>
         </div>
+
+        <div class="row">
+            <video autoplay="autoplay" id="newvideo"></video>
+        </div>
+
+        <script>
+            navigator.getUserMedia({video: true, audio: false}, (localMediaStream) => {
+                var video = document.querySelector('newvideo')
+                video.srcObject = localMediaStream
+                video.autoplay = true
+             }, (e) => {})
+        </script>
+
 
         <div class="row">
             <h2 id="status">Button Status</h2>
