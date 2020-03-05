@@ -101,12 +101,6 @@
         </div>
 
         <script>
-            // navigator.getUserMedia({video: true, audio: false}, (localMediaStream) => {
-            //     var video = document.querySelector('newvideo')
-            //     video.srcObject = localMediaStream
-            //     video.autoplay = true
-            //  }, (e) => {})
-            const mediaStream = new MediaStream();
             const constraints = {
                 audio: false,
                 video: {
@@ -119,12 +113,10 @@
                 }
             };
             const videoElement = document.getElementById('newvideo');
-            videoElement.srcObject = mediaStream;
-            // navigator.getUserMedia = navigator.webkitGetUserMedia;
-            // navigator.getUserMedia(
-            //     constraints,
-            //     stream => videoElement.src = window.URL.createObjectURL(stream),
-            //     error => console.error(error));
+            navigator.mediaDevices.getUserMedia(constraints).
+                then((stream) => {videoElement.srcObject = stream});
+            // const mediaStream = new MediaStream();
+            // videoElement.srcObject = mediaStream;
         </script>
 
 

@@ -9,28 +9,25 @@ app.on('ready', function() {
 		}
     });
     mainWindow.maximize();
-    mainWindow.loadFile('index.html');
-    mainWindow.show();
-   
-	console.log(mainWindow.webContents);
+	mainWindow.loadFile('index.html');
+	mainWindow.webContents.openDevTools(); // Debug
+	mainWindow.show();
 	
 	const led = new Gpio(17, 'out');
 	const button = new Gpio(4, 'in', 'both');
-	 
+		
 	button.watch((err, value) => {
-	  if (err) {
+		if (err) {
 		throw err;
-	  }
-	 
-	  led.writeSync(value);
-	  console.log("Button Status: " + value);
-	//   mainWindow.webContents.insertText(value);
-	  mainWindow.webContents.send('button-status', value);
+		}
+		
+		led.writeSync(value);
+		console.log("Button Status: " + value); //Debug
+		mainWindow.webContents.send('button-status', value);
 	});
-	 
+		
 	process.on('SIGINT', _ => {
-	  led.unexport();
-	  button.unexport();
+		led.unexport();
+		button.unexport();
 	});
-	
 });
