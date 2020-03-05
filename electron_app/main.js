@@ -3,13 +3,17 @@ const Gpio = require('onoff').Gpio;
 
 app.on('ready', function() {
     var mainWindow = new BrowserWindow({
-        show: false,
+		show: false,
+		webPreferences: {
+			nodeIntegration: true,
+		}
     });
     mainWindow.maximize();
     mainWindow.loadFile('index.html');
     mainWindow.show();
    
-    
+	console.log(mainWindow.webContents);
+	
 	const led = new Gpio(17, 'out');
 	const button = new Gpio(4, 'in', 'both');
 	 
@@ -19,9 +23,9 @@ app.on('ready', function() {
 	  }
 	 
 	  led.writeSync(value);
-	  //status.innerHTML(value);
-	  //document.getElementById('status').innerHTML(value);
 	  console.log("Button Status: " + value);
+	//   mainWindow.webContents.insertText(value);
+	  mainWindow.webContents.send('button-status', value);
 	});
 	 
 	process.on('SIGINT', _ => {
