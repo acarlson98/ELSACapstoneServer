@@ -1,6 +1,7 @@
 {
-    "sketch": "mainver2.ino",
+    "programmer": "AVRISP mkII",
     "board": "espressif:esp32:esp32",
     "configuration": "PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none",
-    "programmer": "AVRISP mkII"
+    "port": "/dev/cu.SLAB_USBtoUART",
+    "sketch": "mainver2.ino"
 }
