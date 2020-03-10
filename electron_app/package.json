@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "main.js",
   "dependencies": {
-    "epoll": "^3.0.0",
+    "electron": "^8.0.2",
     "express": "^4.17.1",
-    "onoff": "^5.0.1",
-    "electron": "^8.0.2"
+    "open-easyrtc": "^2.0.5"
   },
   "scripts": {
     "test": "electron ."

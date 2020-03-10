@@ -12,7 +12,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/node_modules/open-easyrtc"></script>
     <script type="text/javascript" src="video_simple_hd.js"></script>
-    <script type="text/javascript" src="index.js"></script>
 
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -36,8 +35,7 @@
 <body onload="connect();">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Edit this height to be responsive -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html"><img style="height:50px" src="Omaha_Mavericks_logo.svg">ELSA
             Monitor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -53,18 +51,19 @@
                 <a class="nav-item nav-link" href="./demos/demo_audio_video_simple_hd.html">HD Video Demo</a>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- Content -->
     <div class="container">
-        <h1>ELSA Monitor Demo</h1>
+        <!-- <h1>ELSA Monitor Demo</h1>
         <div>
             Note: your own image will show up postage stamp sized, while the other party's video will be shown
             in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition
             video; the fallback is to use standard definition (640x480).
-        </div>
+        </div> -->
 
-        <!-- Margin top 3 -->
+        <webview src="https://elsa.unoteam5.com/video_simple_hd.html" style="display:inline-flex; width:100%; height:100%"></webview>
+<!-- 
         <div class="row mt-3">
             <div class="col-md-2">
                 <button onclick="sendUp();">&#8593;</button>
@@ -82,17 +81,13 @@
             <div class="col-md-5" id="receiveMessageArea">
                 Received Messages:
                 <div id="conversation"></div>
-                <!-- Apperently the div above gets used instead? -->
-                <!-- <textarea id="receiveMessageTextArea"></textarea> -->
             </div>
         </div>
 
-        <!-- Adjust the width to put video closer to center? -->
         <div class="row mx-auto" id="videos" height="720">
             <div style="position:relative;float:left;">
                 <video autoplay="autoplay" id="callerVideo"></video>
                 <video autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
-                <!-- each caller video needs to be in it's own div so it's close button can be positioned -->
             </div>
         </div>
 
@@ -117,7 +112,7 @@
                 then((stream) => {videoElement.srcObject = stream});
             // const mediaStream = new MediaStream();
             // videoElement.srcObject = mediaStream;
-        </script>
+        </script> -->
 
 
         <div class="row">
