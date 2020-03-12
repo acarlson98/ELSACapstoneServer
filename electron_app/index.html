@@ -6,131 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
     <title>ELSA Monitor Demo</title>
-    <!-- <link rel="stylesheet" type="text/css" href="../easyrtc/easyrtc.css" /> -->
 
-    <!-- Assumes global locations for socket.io.js and easyrtc.js -->
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="/node_modules/open-easyrtc"></script>
+    <!-- This works but the js can't find other files -->
+    <script type="text/javascript" src="node_modules/open-easyrtc/api/easyrtc.js"></script>
     <script type="text/javascript" src="video_simple_hd.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" href="css/landing.css" /> -->
-    <link rel="stylesheet" type="text/css" href="video_simple_hd.css" />
 
 </head>
 
 <body onload="connect();">
 
-    <!-- Navbar -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html"><img style="height:50px" src="Omaha_Mavericks_logo.svg">ELSA
-            Monitor</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="https://github.com/priologic/easyrtc/tree/master/docs">EasyRTC
-                    Docs</a>
-                <a class="nav-item nav-link" href="https://github.com/acarlson98/ELSACapstoneServer/">Project Github</a>
-                <a class="nav-item nav-link" href="./demos/demo_data_channel_messaging.html">Data Channel Demo</a>
-                <a class="nav-item nav-link" href="./demos/demo_audio_video_simple_hd.html">HD Video Demo</a>
-            </div>
-        </div>
-    </nav> -->
-
     <!-- Content -->
-    <div class="container">
-        <!-- <h1>ELSA Monitor Demo</h1>
-        <div>
-            Note: your own image will show up postage stamp sized, while the other party's video will be shown
-            in high-definition (1280x720). Note: not all webcams are seen by WebRTC as providing high-definition
-            video; the fallback is to use standard definition (640x480).
-        </div> -->
+    <div class="container"></div>
+    <!-- <webview src="https://elsa.unoteam5.com/video_simple_hd.html" style="display:inline-flex; width:100%; height:600px"></webview> -->
 
-        <webview src="https://elsa.unoteam5.com/video_simple_hd.html" style="display:inline-flex; width:100%; height:100%"></webview>
-<!-- 
-        <div class="row mt-3">
-            <div class="col-md-2">
-                <button onclick="sendUp();">&#8593;</button>
-                <button onclick="sendDown();">&#8595;</button>
-                <button onclick="sendLeft()">&#8592;</button>
-                <button onclick="sendRight()">&#8594;</button>
-            </div>
-
-            <div class="col-md-5" id="sendMessageArea">
-                <div id="iam">Obtaining ID...</div>
-                <textarea id="sendMessageText"></textarea>
-                <div id="otherClients"></div>
-            </div>
-
-            <div class="col-md-5" id="receiveMessageArea">
-                Received Messages:
-                <div id="conversation"></div>
-            </div>
+    <div class="row mt-3">
+        <div class="col-md-2">
+            <button onclick="sendUp();">&#8593;</button>
+            <button onclick="sendDown();">&#8595;</button>
+            <button onclick="sendLeft()">&#8592;</button>
+            <button onclick="sendRight()">&#8594;</button>
         </div>
 
-        <div class="row mx-auto" id="videos" height="720">
-            <div style="position:relative;float:left;">
-                <video autoplay="autoplay" id="callerVideo"></video>
-                <video autoplay="autoplay" id="selfVideo" muted="true" volume="0"></video>
-            </div>
+        <div class="col-md-5" id="sendMessageArea">
+            <div id="iam">Obtaining ID...</div>
+            <textarea id="sendMessageText"></textarea>
+            <div id="otherClients"></div>
         </div>
 
-        <div class="row">
-            <video autoplay="autoplay" id="newvideo"></video>
+        <div class="col-md-5" id="receiveMessageArea">
+            Received Messages:
+            <div id="conversation"></div>
+            <!-- Apperently the div above gets used instead? -->
+            <!-- <textarea id="receiveMessageTextArea"></textarea> -->
         </div>
+    </div>
 
-        <script>
-            const constraints = {
-                audio: false,
-                video: {
-                    mandatory: {
-                        maxHeight: 480,
-                        maxWidth: 800,
-                        minHeight: 480,
-                        minWidth: 800,
-                    }
-                }
-            };
-            const videoElement = document.getElementById('newvideo');
-            navigator.mediaDevices.getUserMedia(constraints).
-                then((stream) => {videoElement.srcObject = stream});
-            // const mediaStream = new MediaStream();
-            // videoElement.srcObject = mediaStream;
-        </script> -->
+    <div class="row">
+        <h2>Button Status: </h2>
+        <h2 id="status">Unknown</h2>
+    </div>
 
+    <script>
+        var ipcRenderer = require('electron').ipcRenderer;
+        ipcRenderer.on('button-status', function (event, value) {
+            console.log(value);
+            document.getElementById('status').innerHTML = value;
+        });
+    </script>
 
-        <div class="row">
-            <h2>Button Status: </h2>
-            <h2 id="status">Unknown</h2>
-        </div>
-
-        <script>
-            var ipcRenderer = require('electron').ipcRenderer;
-            ipcRenderer.on('button-status', function (event,value){
-                console.log(value);
-                document.getElementById('status').innerHTML = value;
-            });
-        </script>
-
-        <div class="row" id="footer">
-            <p>Developed by University of Nebraska - Lincoln (Omaha Campus) Capstone Team 5, 2020</p>
-        </div>
+    <div class="row" id="footer">
+        <p>Developed by University of Nebraska - Lincoln (Omaha Campus) Capstone Team 5, 2020</p>
+    </div>
 
     </div>
 
