@@ -13,18 +13,10 @@ function connect() {
     easyrtc.setPeerListener(addToConversation);
     easyrtc.setRoomOccupantListener(convertListToButtons);
 
-
     easyrtc.connect("easyrtc.dataMessaging", loginSuccess, loginFailure);
-    /** Provides a layer on top of the easyrtc.initMediaSource and easyrtc.connect, assign the local media stream to
-     * the video object identified by monitorVideoId, assign remote video streams to
-     * the video objects identified by videoIds, and then call onReady. One of it's
-     * side effects is to add hangup buttons to the remote video objects, buttons
-     * that only appear when you hover over them with the mouse cursor. This method will also add the
-     * easyrtcMirror class to the monitor video object so that it behaves like a mirror.
-     */
     easyrtc.easyApp("easyrtc.videoChatHd", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
-    
 }
+
 
 // From data channel example
 function addToConversation(who, msgType, content) {
@@ -83,24 +75,6 @@ function sendStuffP2P(otherEasyrtcid) {
     document.getElementById('sendMessageText').value = "";
 }
 
-// From hd video example
-// function convertListToButtons (roomName, data, isPrimary) {
-//     clearConnectList();
-//     var otherClientDiv = document.getElementById('otherClients');
-//     for(var easyrtcid in data) {
-//         var button = document.createElement('button');
-//         button.onclick = function(easyrtcid) {
-//             return function() {
-//                 performCall(easyrtcid);
-//             };
-//         }(easyrtcid);
-
-//         var label = document.createTextNode(easyrtc.idToName(easyrtcid));
-//         button.appendChild(label);
-//         button.className = "callbutton";
-//         otherClientDiv.appendChild(button);
-//     }
-// }
 
 // From data channel example
 function convertListToButtons(roomName, occupantList, isPrimary) {
